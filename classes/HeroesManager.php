@@ -48,4 +48,15 @@ class HeroesManager {
     // Retourner le tableau de heros
     return $heroes;
   }
+  function find($id)
+  {
+    $stmt = $this->db->prepare('SELECT * FROM heroes WHERE id = ?');
+    $stmt->execute([$id]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($data) 
+    {
+      return null;
+    }
+    return new Hero($data['name'], $data['health_point']);
+  }
 }
