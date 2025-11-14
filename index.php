@@ -12,9 +12,7 @@ if (isset($_POST['name'])) {
   $hero = new Hero($_POST['name']);
   $heroesManager->add($hero);
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,29 +28,26 @@ if (isset($_POST['name'])) {
   </form>
 
   <?php
-
   if (count($heroes) > 0) {
-    ?>
+  ?>
+  <h1>Heros disponibles :</h1>
 
-    <h1>Heros disponibles :</h1>
+  <div>
+    <?php foreach ($heroes as $hero) { ?>
 
-    <div>
-      <?php foreach ($heroes as $hero) { ?>
+    <p><?= $hero->getName() ?></p>
+    <p><?= $hero->getHealthPoints() ?></p>
 
-        <p><?= $hero->getName() ?></p>
-        <p><?= $hero->getHealthPoints() ?></p>
+    <form action="fight.php" method="post">
+      <input type="hidden" name="heroid" value="<?= $hero->getId() ?>">
+      <button type="submit">Choisir</button>
+    </form>
 
-        <form action="fight.php" method="post">
-          <input type="hidden" name="heroid" value="<?= $hero->getId() ?>">
-          <button type="submit">Choisir</button>
-        </form>
+    <?php } ?>
+  </div>
 
-      <?php } ?>
-    </div>
-
-    <?php
+  <?php
   }
-
   ?>
 </body>
 </html>
